@@ -12,6 +12,7 @@ class SymbolRollerViewController: UIViewController {
     let symbols = ["sun.min", "moon", "cloud", "wind", "snowflake"]
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var button: UIButton!
     @IBOutlet weak var label: UILabel!
     
     /*
@@ -23,29 +24,40 @@ class SymbolRollerViewController: UIViewController {
      ㅇ storyboard에서 cnt 누르고 code로 긁어 올때
         1. IBOutlet: 스토리보드 구성 요소
         2. IBAction: 스토리보드 구성 요소의 행동(클릭 등..)
+     
+     ㅇ 코드 맨 마지막에 ! 표시는 언랩핑으로 값이 무조건 있다는 것
+     
+     ㅇ DRY: Do Not Repeat Yourself
      */
     
     // 메모리에 올린다.
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        imageView.image = UIImage(systemName: "cloud")
-        print("view did load...")
+        /*
+         TODO
+          - 심볼에서 하나를 임의로 추출해서 이미지와 텍스트를 설정한다.
+         */
+        reload()
+        button.tintColor = UIColor.systemPink
     }
     
     // 뷰가 나타날거야
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("view will appear...")
     }
     
     // 뷰가 나타났다.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("view did appear...")
     }
     
     @IBAction func buttonTapped(_ sender: Any) {
-        print("버튼이 눌렸다 이 자슥아!")
+        reload()
+    }
+    
+    func reload() {
+        let symbol = symbols.randomElement()!
+        imageView.image = UIImage(systemName: symbol)
+        label.text = symbol
     }
 }
